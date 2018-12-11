@@ -1,0 +1,47 @@
+{
+	"name": "bitly-cli-client",
+	"version": "1.0.0",
+	"description": "🔪 Shorten links with Bitly in your terminal!",
+	"license": "MIT",
+	"repository": "xxczaki/bitly-cli-client",
+	"author": {
+		"name": "Antoni Kepinski",
+		"email": "a@kepinski.me",
+		"url": "https://kepinski.me"
+	},
+	"bin": {
+		"bitly": "cli.js"
+	},
+	"scripts": {
+		"test": "xo && ava"
+	},
+	"keywords": [
+		"bitly",
+		"url",
+		"shortener",
+		"link",
+		"urls",
+		"short",
+		"long",
+		"shortify",
+		"cli",
+		"nodejs",
+		"npm",
+		"app"
+	],
+	"dependencies": {
+		"bitly": "^6.0.8",
+		"chalk": "^2.4.1",
+		"clipboardy": "^1.2.3",
+		"is-url-superb": "^2.0.0",
+		"lowdb": "^1.0.0",
+		"meow": "^5.0.0",
+		"normalize-url": "^4.0.0",
+		"prompts": "^2.0.0"
+	},
+	"devDependencies": {
+		"ava": "*",
+		"execa": "*",
+		"xo": "*"
+	}
+}
