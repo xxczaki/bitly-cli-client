@@ -10,13 +10,16 @@ const chalk = require('chalk');
 const clipboardy = require('clipboardy');
 const normalizeUrl = require('normalize-url');
 const isUrl = require('is-url-superb');
+const Conf = require('conf');
+const firstRun = require('first-run');
 const {BitlyClient} = require('bitly');
 
+const config = new Conf();
 const adapter = new FileSync('db.json');
 const db = low(adapter);
 
 // Bitly Client
-const bitly = new BitlyClient('', {});
+const bitly = new BitlyClient(config.get('token'), {});
 
 // Set database defaults
 db.defaults({urls: []}).write();
@@ -29,9 +32,11 @@ const cli = meow(`
 		--url -u   			Shorten a link
 		--list -l  			List all shortened links
 		--purge -p   		Purge the list of saved URLs
+		--reset -r          Reset Generic Access Token
 	Examples
 		$ bitly --url kepinski.me
 		$ bitly -l
+		$ bitly --reset
 `, {
 	flags: {
 		url: {
@@ -45,9 +50,30 @@ const cli = meow(`
 		purge: {
 			type: 'boolean',
 			alias: 'p'
+		},
+		reset: {
+			type: 'boolean',
+			alias: 'r'
 		}
 	}
 });
+
+if (firstRun() === true) {
+	(async () => {
+		console.log('Welcome to Bitly CLI! Please enter your Generic Access Token below.');
+		console.log('Follow this guide: https://bit.ly/2CcRl7C\n');
+
+		const response = await prompts({
+			type: 'text',
+			name: 'token',
+			message: 'Paste your token here:'
+		});
+
+		config.set('token', response.token);
+		console.log(chalk.green('Token has been set successfully! Type `bitly --help` for usage instructions :)'));
+		console.log(chalk.green('If you would like to reset your token, type `bitly --reset`'));
+	})();
+}
 
 if (cli.flags.url) {
 	(async () => {
@@ -115,4 +141,11 @@ if (cli.flags.purge) {
 			process.exit(1);
 		}
 	})();
+}
+
+if (cli.flags.reset) {
+	firstRun.clear();
+	config.clear();
+
+	console.log(chalk.green('Token deleted! Type `bitly` to configure a new one :)'));
 }

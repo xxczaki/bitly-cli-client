@@ -1,6 +1,8 @@
 import test from 'ava';
 import execa from 'execa';
 
+// Note: Before running `npm test` make sure to reset the API key and delete the db.json file (or just run `bitly --purge`)
+
 test('Test --help output', async t => {
 	const ret = await execa.shell('node ./cli.js --help');
 	t.regex(ret.stdout, /Usage/);
