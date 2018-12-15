@@ -12,6 +12,7 @@ const normalizeUrl = require('normalize-url');
 const isUrl = require('is-url-superb');
 const Conf = require('conf');
 const firstRun = require('first-run');
+const qrcode = require('qrcode-terminal');
 const {BitlyClient} = require('bitly');
 
 const config = new Conf();
@@ -30,11 +31,12 @@ const cli = meow(`
 		$ bitly <options>
 	Options
 		--url -u   			Shorten a link
+		--qr -q				Generate a QR Code
 		--list -l  			List all shortened links
 		--purge -p   		Purge the list of saved URLs
 		--reset -r          Reset Generic Access Token
 	Examples
-		$ bitly --url kepinski.me
+		$ bitly --url --qr kepinski.me
 		$ bitly -l
 		$ bitly --reset
 `, {
@@ -42,6 +44,11 @@ const cli = meow(`
 		url: {
 			type: 'string',
 			alias: 'u'
+		},
+		qr: {
+			type: 'boolean',
+			alias: 'q',
+			default: false
 		},
 		list: {
 			type: 'boolean',
@@ -92,8 +99,16 @@ if (cli.flags.url) {
 				db.get('urls')
 					.push({long, short})
 					.write();
+
+				// Copy to clipboard
 				clipboardy.write(short);
+
 				console.log(`${chalk.bold.green('Success!')} Here is your Bitly URL: ${chalk.cyan(short)} ${chalk.dim.gray('[copied to clipboard]')}`);
+
+				// Generate QR Code
+				if (cli.flags.qr === true) {
+					qrcode.generate(short, {small: true});
+				}
 			} catch (error) {
 				console.log(chalk.red(error));
 				process.exit(1);
