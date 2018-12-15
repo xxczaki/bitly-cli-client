@@ -1,6 +1,6 @@
 {
 	"name": "bitly-cli-client",
-	"version": "1.1.1",
+	"version": "1.1.2",
 	"description": "🔪 Shorten links with Bitly in your terminal!",
 	"license": "MIT",
 	"repository": "xxczaki/bitly-cli-client",

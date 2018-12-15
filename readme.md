@@ -25,11 +25,14 @@ npm install --global bitly-cli-client
 		$ bitly <options>
 	Options
 		--url -u   			Shorten a link
+		--qr -q				Generate a QR Code
 		--list -l  			List all shortened links
 		--purge -p   		Purge the list of saved URLs
+		--reset -r          Reset Generic Access Token
 	Examples
-		$ bitly --url kepinski.me
+		$ bitly --url --qr kepinski.me
 		$ bitly -l
+		$ bitly --reset
 ```
 
 ### License
