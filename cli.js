@@ -84,6 +84,14 @@ if (firstRun() === true) {
 
 if (cli.flags.url) {
 	(async () => {
+		// Check if the token exists
+		if (config.get('token') === undefined) {
+			console.log(`\n
+			${chalk.red.bold('Bitly Generic Access Token not found!')}
+			${chalk.cyan('Try running `bitly --reset`')}
+		\n`);
+		}
+
 		// Normalize URL
 		const link = normalizeUrl(cli.flags.url);
 
