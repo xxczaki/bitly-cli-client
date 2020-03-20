@@ -37,7 +37,7 @@
 		"first-run": "^1.2.0",
 		"is-url-superb": "^2.0.0",
 		"lowdb": "^1.0.0",
-		"meow": "^5.0.0",
+		"meow": "^6.1.0",
 		"normalize-url": "^4.2.0",
 		"prompts": "^2.0.4",
 		"qrcode-terminal": "^0.12.0"
