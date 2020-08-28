@@ -34,7 +34,7 @@
 		"chalk": "^2.4.2",
 		"clipboardy": "^1.2.3",
 		"conf": "^3.0.0",
-		"first-run": "^1.2.0",
+		"first-run": "^2.0.0",
 		"is-url-superb": "^2.0.0",
 		"lowdb": "^1.0.0",
 		"meow": "^5.0.0",
